@@ -1,0 +1,26 @@
+<!-- Creates Weeky/Calendar Toggle Switch -->
+<label class="toggle">
+    <input 
+        type="checkbox"
+        (click)="changeSchedule()">
+    <span class="slider"></span>
+    <span class="labels" data-off="Weekly" data-on="Calendar"></span>
+</label>
+
+
+<br>
+
+<table class="center">
+    <tr>
+
+        <th scope="col">Activity</th>
+         @for (day of currentView; track day) {
+            <th scope="col">
+                {{day}}
+                <br>
+                {{dates[$index]}}
+            </th>
+         }
+
+    </tr>
+</table>
