@@ -8,42 +8,44 @@
     </label>
 <br>
 
+<table class="center">
 
+    <tr>
+        <th>Activity</th>
+        @for (day of activity; track day) { 
+            <th>
+                {{ day[$index].date.day }}
+                <br>
+                {{ dates[$index] }}
+            </th>
+        }
+    </tr>
 
-        <table class="center">
-            <tr>
-                <th>Activity</th>
-                    @for (day of currentView; track day) { 
-                        <th>
-                            {{ day }}
-                            <br>
-                            {{ dates[$index] }}
-                        </th>
-                    }
-            </tr>
+    @for (item of activity; track item) {
+        <tr>
+            <td>
+                <select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </td>
             @for (item of activity; track item) {
-                <tr>
-                    <td>
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                    </td>
-                        @for (day of currentView; track day) {
-                            <td>
-                                <input 
-                                    type="text" 
-                                    class="form-control"
-                                    [(ngModel)]="item.hours">
-                            </td>
-                        }
-                    <td>
-                        <button (click)="addRow(item)">+</button>
-                        <button (click)="deleteRow([$index])">-</button>
-                    </td>
-                </tr>
+                <td>
+                    <input 
+                        type="text" 
+                        class="form-control"
+                        [(ngModel)]="item[$index].day.hours">
+                </td>
             }
+            <td>
+                <button (click)="addRow(item)">+</button>
+                <button (click)="deleteRow([$index])">-</button>
+            </td>
+        </tr>
+    }
+
+
             <tr>
                 <!-- <th>Total:</th>
                 @for (total of currentView; track total) {
