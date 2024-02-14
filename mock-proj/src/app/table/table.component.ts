@@ -11,7 +11,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class TableComponent {
 
-  activity = [];
+  activity = [
+    {
+      id: '',
+      name: '',
+      email: '',
+    },
+    
+  ];
   
   //Days in week and calendar period
   datesInWeek = 7;
@@ -31,7 +38,7 @@ export class TableComponent {
 
   constructor() {
     this.createDates(this.datesInWeek);
-    this.fillObject();
+
   }
 
   // This function changes the view based on the (click) event
@@ -60,30 +67,15 @@ export class TableComponent {
     }
   }
 
-  fillObject() {
-    for (let index = 0; index < this.currentView.length; index++) {
-      var key = index;
-      console.log(key);
-      const obj  = {
-        [key] : {
-          day: this.currentView[index],
-          hours: '',
-          date: this.dates[index],
-        }
-      };
-      this.activity.push(obj);
-    }
-  }
 
 
   addRow(position: any) {
     const obj = {
       id: '',
-      hours: '',
+      name: '',
       email: '',
     };
-    this.activity.splice(position, 0, obj)
-    // this.activity.push(obj);
+    this.activity.push(obj);
   }
 
   deleteRow(row: any) {

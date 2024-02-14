@@ -12,9 +12,9 @@
 
     <tr>
         <th>Activity</th>
-        @for (day of activity; track day) { 
+        @for (day of currentView; track day) { 
             <th>
-                {{ day[$index].date.day }}
+                {{ day }}
                 <br>
                 {{ dates[$index] }}
             </th>
@@ -30,12 +30,12 @@
                     <option value="3">3</option>
                 </select>
             </td>
-            @for (item of activity; track item) {
+            @for (day of currentView; track day) {
                 <td>
                     <input 
                         type="text" 
                         class="form-control"
-                        [(ngModel)]="item[$index].day.hours">
+                        [(ngModel)]="item.name">
                 </td>
             }
             <td>
