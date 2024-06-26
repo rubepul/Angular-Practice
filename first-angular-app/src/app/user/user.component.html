@@ -1,0 +1,12 @@
+<div>
+    <button
+        (click)="onSelectUser()"
+    >
+        <!-- In Angular when you reference assets like images you dont need to navigate up multiple directories (../../) -->
+        <img 
+            [src]="imagePath" 
+            [alt]="user.name"
+        />
+        <span>{{ user.name }}</span>
+    </button>
+</div>
