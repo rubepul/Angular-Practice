@@ -1,5 +1,7 @@
-<div>
+<app-card>
+    <!-- [class.active] is a way to perform dynamic css styling by adding the class active on the button-->
     <button
+        [class.active]="selected"
         (click)="onSelectUser()"
     >
         <!-- In Angular when you reference assets like images you dont need to navigate up multiple directories (../../) -->
@@ -9,4 +11,4 @@
         />
         <span>{{ user.name }}</span>
     </button>
-</div>
+</app-card>

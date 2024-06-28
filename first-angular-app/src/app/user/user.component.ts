@@ -1,22 +1,18 @@
 import { Component, EventEmitter, Input, Output, output } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
-
-
-interface User {
-  id: string, 
-  name: string, 
-  avatar: string
-}
+import { User } from './user.model';
+import { CardComponent } from '../shared/card/card.component';
 
 @Component({
   selector: 'app-user',
   standalone: true,
+  imports: [CardComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
 export class UserComponent {
   @Input({required: true}) user!: User;
-
+  @Input({required: true}) selected!: boolean;
+  
   @Output() select = new EventEmitter<{id: string, name: string}>();
 
   // Stores an EventEmitter under the hood

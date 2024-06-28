@@ -15,10 +15,12 @@ import { TasksComponent } from './tasks/tasks.component';
 })
 export class AppComponent {
   users = DUMMY_USERS;
-  userName: string = ''
+  userName?: string;
+  userId?: string;
 
   onSelectUser(data: {id: string, name: string}) {
     console.log(data)
     this.userName = data.name;
+    this.userId = data.id;
   }
 }
