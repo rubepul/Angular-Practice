@@ -19,7 +19,7 @@ export class TasksService {
           id: 't2',
           userId: 'u3',
           title: 'Build first prototype',
-          summary: 'Build a first protoype of the online shiop website',
+          summary: 'Build a first protoype of the online shop website',
           dueDate: '2024-05-31'
         },
         {
