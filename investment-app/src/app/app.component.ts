@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from './user-input/user-input.component';
@@ -13,7 +13,8 @@ import { InvestmentInput, InvestmentOutput } from './investment-results.model';
     imports: [RouterOutlet, HeaderComponent, UserInputComponent, InvestmentResultsComponent]
 })
 export class AppComponent {
-  results?: InvestmentOutput[];
+  // results is stateful data, data that when changes will have an impact on the UI
+  results = signal<InvestmentOutput[] | undefined>(undefined);
   title = 'investment-app';
 
 
@@ -35,6 +36,6 @@ export class AppComponent {
         totalAmountInvested: initialInvestment + annualInvestment * year
       });
     }
-    this.results = annualData;
+    this.results.set(annualData);
   }
 }
