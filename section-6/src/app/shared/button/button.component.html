@@ -1,2 +1,12 @@
-<span> Logout </span>
-<span class="icon"> → </span>
+<span> 
+    <ng-content />
+</span>
+<!-- 
+    Using ng-content with the select property set on it to 
+    select a part of the wrapped content, in this case the part that has the icon class
+    on it. Arrow between ng-content is fall back content
+-->
+<ng-content select=".icon">
+    →
+</ng-content>
+
