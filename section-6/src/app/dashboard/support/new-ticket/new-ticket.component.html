@@ -1,12 +1,15 @@
-<form>
+<form (ngSubmit)="onSubmit(titleInput, textInput.value)" #form>
     <app-control label="Title"> 
-        <input name="title" id="title"/>
+        <!-- #titleInput creates a template variable -->
+        <input name="title" id="title" #titleInput/>
     </app-control>
 
     <app-control label="Request"> 
-        <textarea name="request" id="request" rows="3"></textarea>
+        <textarea name="request" id="request" rows="3" #textInput></textarea>
     </app-control>
 
+    <!-- If you use a template variable <button appButton #btn> then it's actually
+        a component instance that's stored as a value not the underlying dom element -->
     <p>
         <button appButton>
             Submit 
