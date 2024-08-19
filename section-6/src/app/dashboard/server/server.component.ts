@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-server',
@@ -9,11 +9,18 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class ServerComponent implements OnInit, OnDestroy{
   // Example of Literal Types
-  currentStatus: 'online' | 'offline' | 'unknown' = 'online';
+  currentStatus = signal<'online' | 'offline' | 'unknown'>('offline');
   // The type of interval should be the type of value returned by setInterval
   private interval?: ReturnType<typeof setInterval>;
 
+  /* 
+    An effect is an operation that runs whenever one or more signal values change, 
+    angular sets up a subscription
+  */
   constructor(){
+    effect(() => {
+      console.log(this.currentStatus());
+    })
   }
 
   ngOnInit() {
@@ -22,13 +29,13 @@ export class ServerComponent implements OnInit, OnDestroy{
       const rnd = Math.random();
       console.log(rnd)
       if (rnd < 0.5){
-        this.currentStatus = 'online';
+        this.currentStatus.set('online');
       } else if (rnd < 0.9) {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       } else {
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
-    }, 5000);
+    }, 10000);
   }
 
   ngAfterViewInit() {
