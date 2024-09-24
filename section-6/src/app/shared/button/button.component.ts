@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   /* 
     Attribute Selector (controls buttons that have the attribute appButton).
-    Is used if you wanna extend  a built in element.
+    Is used if you wanna extend a built in element.
     Can support multiple component selectors e.g. a[appButton]
   */
   selector: 'button[appButton]',

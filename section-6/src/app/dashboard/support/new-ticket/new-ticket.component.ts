@@ -17,6 +17,9 @@ export class NewTicketComponent implements OnInit, AfterViewInit{
   @ViewChild('form') form?: ElementRef<HTMLFormElement>;
   // private form =  viewChild.required<ElementRef<HTMLFormElement>>('form');
 
+  enteredTitle = '';
+  enteredText = '';
+
   @Output() add = new EventEmitter<{title: string; text: string}>();
   // add = output<{title: string; text: string}>();
 
@@ -35,8 +38,10 @@ export class NewTicketComponent implements OnInit, AfterViewInit{
       .dir() method displays an interactive list of the 
       properties of the specified JS object 
   */
-  onSubmit(title: string, ticketText: string){
-    this.add.emit({title: title, text: ticketText})
-    this.form?.nativeElement.reset();
+  onSubmit(){
+    this.add.emit({title: this.enteredTitle, text: this.enteredText})
+    // this.form?.nativeElement.reset();
+    this.enteredText = '';
+    this.enteredTitle = '';
   }
 }
