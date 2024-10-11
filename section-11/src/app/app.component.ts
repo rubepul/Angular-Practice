@@ -10,8 +10,6 @@ import { interval, map } from 'rxjs';
 export class AppComponent implements OnInit{
   clickCount = signal(0);
   clickCount$ = toObservable(this.clickCount);
-  // interval = signal(0);
-  // doubleInterval = computed(() => this.interval() * 2);
 
   private destroyRef = inject(DestroyRef);
 
