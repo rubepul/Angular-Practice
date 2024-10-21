@@ -73,6 +73,6 @@ export class AvailablePlacesComponent implements OnInit {
       placeId: selectedPlace.id
     }).subscribe({
       next:(resData) => console.log(resData)
-    });
+    })  ;
   }
 }
