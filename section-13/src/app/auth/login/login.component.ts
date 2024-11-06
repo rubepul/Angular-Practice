@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { of } from 'rxjs';
+import { debounceTime, of } from 'rxjs';
 
 // Building custom validator
 function mustContainQuestionMark(control: AbstractControl) {
@@ -15,8 +15,15 @@ function emailIsUnique(control: AbstractControl) {
     // the of function produces and observable that instantly emits a value
     return of(null);
   }
-
   return of({notUnique: true});
+}
+
+let initialEmailValue = '';
+const savedForm = window.localStorage.getItem('saved-login-form');
+
+if (savedForm) {
+  const loadedForm = JSON.parse(savedForm);
+  initialEmailValue = loadedForm.email;
 }
 
 @Component({
@@ -26,11 +33,14 @@ function emailIsUnique(control: AbstractControl) {
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  private destroyRef = inject(DestroyRef);
+
+
   // Setting up the form
   form = new FormGroup({
     // Adding validators to reactive forms
-    email: new FormControl('', {
+    email: new FormControl(initialEmailValue, {
       validators: [Validators.email, Validators.required],
       /*
         An async validator is also a function that must return an observable.
@@ -59,6 +69,27 @@ export class LoginComponent {
     this.form.controls.password.dirty && 
     this.form.controls.password.invalid
     );
+  }
+
+  ngOnInit() {
+    // const savedForm = window.localStorage.getItem('saved-login-form');
+    
+    // if (savedForm) {
+    //   const loadedForm = JSON.parse(savedForm);
+    //   this.form.patchValue({
+    //     email: loadedForm.email,
+    //   });
+    // }
+
+    const subscription = this.form.valueChanges.pipe(debounceTime(500)).subscribe({
+      next: value => {
+        window.localStorage.setItem(
+          'saved-login-form', 
+          JSON.stringify({email: value.email})
+        );
+      }
+    });
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   onSubmit() {
