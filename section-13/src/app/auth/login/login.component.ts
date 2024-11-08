@@ -18,6 +18,7 @@ function emailIsUnique(control: AbstractControl) {
   return of({notUnique: true});
 }
 
+// This won't work if doing server side pre-rendering
 let initialEmailValue = '';
 const savedForm = window.localStorage.getItem('saved-login-form');
 
@@ -35,7 +36,6 @@ if (savedForm) {
 })
 export class LoginComponent implements OnInit{
   private destroyRef = inject(DestroyRef);
-
 
   // Setting up the form
   form = new FormGroup({
@@ -81,8 +81,13 @@ export class LoginComponent implements OnInit{
     //   });
     // }
 
+    /* 
+      Subscribe to be notified about changes, because the observable will emit new
+      values whenever the values entered into the form change (every keystroke)
+    */
     const subscription = this.form.valueChanges.pipe(debounceTime(500)).subscribe({
       next: value => {
+        // Object will be stored in the local storage with every keystroke
         window.localStorage.setItem(
           'saved-login-form', 
           JSON.stringify({email: value.email})
